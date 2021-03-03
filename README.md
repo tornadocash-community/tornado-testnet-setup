@@ -1,17 +1,11 @@
-## Tornado cash Proposal #2: Lower vote quorum
+## Tornado cash GOERLI #1: Lower vote quorum and change
 
 ```
 npm install --dev
 ```
 
-You need to configure:
-
-```
-ETH_RPC_MAINNET=<Ethereum node>
-```
-
 Run the test:
 
 ```
-npx hardhat test
+ETH_RPC_MAINNET=<Ethereum node> npx hardhat test
 ```

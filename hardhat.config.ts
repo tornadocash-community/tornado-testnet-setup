@@ -23,9 +23,12 @@ const config: HardhatUserConfig = {
     hardhat: {
       forking: {
         url: process.env.ETH_RPC_MAINNET,
-        blockNumber: 11737139,
+        blockNumber: 4379735,
       },
     },
+  },
+  mocha: {
+    timeout: 600000,
   },
 };
 

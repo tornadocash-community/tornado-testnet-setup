@@ -9,24 +9,24 @@ import { advanceTime, getSignerFromAddress } from "./utils";
 
 describe("Enable transfer proposal", () => {
   // Proposer address (delegate)
-  const tornDelegate = "0xd26BaA5F41CC7839CEdb020b6d98E1C6e1642D75";
+  const tornDelegate = "0xA43Ce8Cc89Eff3AA5593c742fC56A30Ef2427CB0";
   // 1k Delegator address
-  const tornDelegator = "0xb3e7c32d7c328aeabc8f34e90a879326b6482750";
+  const tornDelegator = "0x03Ebd0748Aa4D1457cF479cce56309641e0a98F5";
   // TORN whale to vote with 25k votes
-  const tornWhale = "0x5f48c2a71b2cc96e3f0ccae4e39318ff0dc375b2";
+  const tornWhale = "0x03Ebd0748Aa4D1457cF479cce56309641e0a98F5";
   // Live TORN contract
   const tornToken = "0x77777FeDdddFfC19Ff86DB637967013e6C6A116C";
   // Live governance contract
   const governanceAddress = "0x5efda50f22d34F262c29268506C5Fa42cB56A1Ce";
 
-  const torn15k = ethers.utils.parseEther("15000");
+  const torn5k = ethers.utils.parseEther("5000");
   const torn25k = ethers.utils.parseEther("25000");
 
-  it("Should execute proposal and hove lowered the vote quorum", async () => {
+  it("Should execute proposal and have lowered the vote quorum", async () => {
     // This test is forking the mainnet state
 
     // Proposal contract
-    const Proposal = await ethers.getContractFactory("ProposalLowerVoteQuorum");
+    const Proposal = await ethers.getContractFactory("ProposalTestnetSetup");
 
     // Get Tornado governance contract
     let governance = await ethers.getContractAt(
@@ -40,12 +40,11 @@ describe("Enable transfer proposal", () => {
     let torn = await ethers.getContractAt(TornAbi, tornToken);
 
     // Set the current date as the date TORN transfers can be enabled (01.02.2021)
-    await ethers.provider.send("evm_setNextBlockTimestamp", [1612274437]);
+    // await ethers.provider.send("evm_setNextBlockTimestamp", [1612274437]);
 
     await expect(await governance.QUORUM_VOTES()).equal(torn25k);
 
     // == Propose ==
-
     // Impersonate a TORN address with more than 1k token delegated
     const tornDelegateSigner = await getSignerFromAddress(tornDelegate);
     torn = torn.connect(tornDelegateSigner);
@@ -93,6 +92,6 @@ describe("Enable transfer proposal", () => {
     await governance.execute(1, { gasPrice: 0 });
 
     // Check the new vote quorum
-    await expect(await governance.QUORUM_VOTES()).equal(torn15k);
+    await expect(await governance.QUORUM_VOTES()).equal(torn5k);
   });
 });

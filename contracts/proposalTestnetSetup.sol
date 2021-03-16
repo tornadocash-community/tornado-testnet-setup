@@ -1,33 +1,24 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.6.0;
 
-interface ITorn {
-    function changeTransferability(bool) external;
-}
 
-interface IGov {
-    function setQuorumVotes(uint256) external;
-    function setProposalThreshold(uint256) external;
-    function setExecutionDelay(uint256) external;
-    function setExecutionExpiration(uint256) external;
-    function setVotingPeriod(uint256) external;
-    function setClosingPeriod(uint256) external;
-    function setVoteExtendTime(uint256) external;
+
+interface ITornadoProxy {
+    enum InstanceState { Disabled, Enabled, Mineable }
+
+    function updateInstance(address _instance, InstanceState _state) external;
 }
 
 contract ProposalTestnetSetup {
     function executeProposal() public {
-        ITorn torn = ITorn(0x77777FeDdddFfC19Ff86DB637967013e6C6A116C);
-        torn.changeTransferability(true);
-        
-        IGov gov = IGov(0x5efda50f22d34F262c29268506C5Fa42cB56A1Ce);
-        gov.setProposalThreshold(2000e18);
-        gov.setQuorumVotes(5000e18);
-
-        gov.setExecutionDelay(20 minutes);
-        gov.setExecutionExpiration(2 hours);
-        gov.setVotingPeriod(1 hours);
-        gov.setClosingPeriod(5 minutes);
-        gov.setVoteExtendTime(10 minutes);
-    }
+        ITornadoProxy tornadoProxy = ITornadoProxy(0x720fFb58b4965D2C0BD2b827FA8316C2002A98aa);
+        address[3] memory wBTCs = [
+            address(0x242654336ca2205714071898f67E254EB49ACdCe),
+            address(0x776198CCF446DFa168347089d7338879273172cF),
+            address(0xeDC5d01286f99A066559F60a585406f3878a033e)
+        ];
+        for(uint256 i = 0; i < wBTCs.length; i++) {
+            tornadoProxy.updateInstance(wBTCs[i], ITornadoProxy.InstanceState.Enabled); 
+        }
+    }   
 }

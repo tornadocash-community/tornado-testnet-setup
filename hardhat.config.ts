@@ -9,6 +9,12 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
   }
 });
 
+task("deploy", "deploy proposal", async (args, hre) => {
+  const Proposal = await hre.ethers.getContractFactory("ProposalTestnetSetup");
+  const proposal = await Proposal.deploy();
+  console.log("proposal", proposal.address);
+});
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.6.0",
@@ -23,8 +29,26 @@ const config: HardhatUserConfig = {
     hardhat: {
       forking: {
         url: process.env.ETH_RPC_MAINNET,
-        blockNumber: 4379735,
+        blockNumber: 4452037,
       },
+    },
+    mainnet: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: process.env.PRIVATE_KEY
+        ? [process.env.PRIVATE_KEY]
+        : {
+            mnemonic:
+              "test test test test test test test test test test test junk",
+          },
+    },
+    goerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: process.env.PRIVATE_KEY
+        ? [process.env.PRIVATE_KEY]
+        : {
+            mnemonic:
+              "test test test test test test test test test test test junk",
+          },
     },
   },
   mocha: {

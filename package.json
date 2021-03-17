@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-etherscan": "^2.1.1",
+    "dotenv": "^8.2.0",
     "torn-token": "^1.0.3",
-    "tornado-anonymity-mining": "^2.1.0"
+    "tornado-anonymity-mining": "^2.1.1"
   }
 }

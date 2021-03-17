@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
@@ -29,7 +30,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: process.env.ETH_RPC_MAINNET,
+        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       },
     },
     mainnet: {
@@ -42,12 +43,17 @@ const config: HardhatUserConfig = {
           },
     },
     goerli: {
-      url: `https://eth-goerli.alchemyapi.io/v2/`,
-      accounts: ['']
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: process.env.PRIVATE_KEY
+        ? [process.env.PRIVATE_KEY]
+        : {
+            mnemonic:
+              "test test test test test test test test test test test junk",
+          },
     },
   },
   etherscan: {
-    apiKey: ''
+    apiKey: process.env.ETHERSCAN_KEY,
   },
   mocha: {
     timeout: 600000,

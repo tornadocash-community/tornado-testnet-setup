@@ -7981,10 +7981,10 @@ torn-token@^1.0.3:
     ethereumjs-util "^7.0.3"
     web3 "^1.2.11"
 
-tornado-anonymity-mining@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tornado-anonymity-mining/-/tornado-anonymity-mining-2.1.0.tgz#79e0ea4a3db6595cb309e1d9651232c25cfba18a"
-  integrity sha512-htOD1X5h+pfuALuSErAd8G/GyIdCC5876HCr1CYxLLyLlD13J0DfiofSLHqbS7v8bxbV61v3M7hqXeGB9/wXUA==
+tornado-anonymity-mining@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/tornado-anonymity-mining/-/tornado-anonymity-mining-2.1.1.tgz#53381bad01fbe71bcb5eeab99c56a28a5ed1682d"
+  integrity sha512-+GPRofVhdNyLUX06p6LxT9IfHBH+aTohJTqTVpcAVmDgfNzKdpmFCNRq/QJrqrhQYWduOxNa+3JR/oTF7NInOw==
   dependencies:
     circomlib "git+https://github.com/tornadocash/circomlib.git#3b492f9801573eebcfe1b6c584afe8a3beecf2b4"
     decimal.js "^10.2.0"
